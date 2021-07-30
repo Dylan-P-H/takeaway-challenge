@@ -1,18 +1,23 @@
 require 'menu'
 
 class Customer
-  attr_reader :receipt_total
+  attr_accessor :receipt_total, :individual_order_prices, :individual_order_prices_sum
   def initialize
     @receipt_total = 0
+    @individual_order_prices = []
+    @individual_order_prices_sum = 0
   end
   def order(menu, user_choice)
     puts menu.items
-      if user_choice == menu.items["Burrito"]
-        receipt_total += 5
-      elsif user_choice == menu.items["Quesadilla"]
-        receipt_total += 3.50
-      elsif user_choice == menu.items["Devils Steak"]
-        receipt_total += 18
+    menu.items.each do |item, price|
+      if user_choice == item
+        @receipt_total += price
+        @individual_order_prices.push(price)
       end
+    end
+  end
+  def check_order
+    @individual_order_prices.each { |price| @individual_order_prices_sum+=price }
+    fail "The order doesnt match up!!" if @individual_order_prices_sum != @receipt_total
   end
 end

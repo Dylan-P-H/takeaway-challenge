@@ -5,7 +5,7 @@ class Menu
     "Quesadilla" => 5, 
     "Devils Steak" => 5}
   end
-  def display
-    return @items
+  def display   # TO MAKE TESTS EASIER
+    return @items  
   end
 end
